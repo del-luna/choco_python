@@ -10,7 +10,7 @@
 
 ## Function 
 * Neural Style Transfer
-  * Background Style Transfer
+  * ~~Background Style Transfer~~ [not yet ...]
   * Character Style Transfer
 
 ## **Installation**
