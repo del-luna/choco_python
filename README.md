@@ -3,29 +3,27 @@ Flask for Computer-Vision Prototype
 > Link : http://choco-python.kro.kr:5002/
 (상시 가동중은 아닙니다.😅)
 
-### Function 
+## Function 
 * Neural Style Transfer
   * Background Style Transfer
   * Character Style Transfer
 
-### Setting Virtualenv
-#### 1. Create virtualenv in Anaconda
-```cmd
-> conda create -n flask python=3.8
-```
-#### 2. Activate virtualenv
-```cmd
-> conda activate flask
+## **Installation**
+
+**Clone this reop:**
+
+```shell
+git clone https://github.com/del-luna/choco_python.git
+cd choco_python
 ```
 
-### Install Requirements
-```cmd
-(flask) > cd ~pyflask
-(flask) ~pyflask > pip install -r requirements.txt
-```
+**Dependencies:**
+
+All dependencies for defining the environment are provided in `requirements.txt`
+
 ### Start Server
 ```cmd
-(flask) ~pyflask > python start_flask.py
+python start_flask.py
 ```
 
 <br>
