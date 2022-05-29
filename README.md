@@ -25,15 +25,13 @@ Flask for Computer-Vision Prototype
 ```
 ### Start Server
 ```cmd
-(venv_flask) ~pyflask\flask_deep\darkflow_yolo > cd ../
-(venv_flask) ~pyflask\flask_deep > cd ../
-(venv_flask) ~pyflask > python start_flask.py
+(flask) ~pyflask > python start_flask.py
 ```
 
 <br>
 
 ## Main Page
-<img src="./flask_deep/static/assets/img/index-main.jpg">
+<img src="./static/assets/img/index-main.jpg">
 
 ## Style Transfer
 * Input
