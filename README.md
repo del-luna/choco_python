@@ -1,7 +1,14 @@
-# Flask_DL-service
-Flask for Computer-Vision Prototype
-> Link : http://choco-python.kro.kr:5002/
+# Choco_python - Deep learning Style Transfer Service Using Flask
+**Flask for Style-Transfer Prototype**
+
+> ~~Link : http://choco-python.kro.kr:5002/~~
 (상시 가동중은 아닙니다.😅)
+
+## Updates
+
+---
+
+- [2022/05/29] Character Style Transfer and website linkage completed
 
 ## Function 
 * Neural Style Transfer
@@ -19,7 +26,13 @@ cd choco_python
 
 **Dependencies:**
 
-All dependencies for defining the environment are provided in `requirements.txt`
+All dependencies for defining the environment are provided in `environment/choco_python_env.yaml`  We recommend running this repository using [Anaconda](https://docs.anaconda.com/anaconda/install/):
+
+```shell
+conda env create -f ./environment/choco_python_env.yaml
+```
+
+
 
 ### Start Server
 ```cmd
@@ -32,11 +45,11 @@ python start_flask.py
 <img src="./flask_deep/static/assets/img/index-main.jpg">
 
 ## Style Transfer
-* Input
-<img src="./etc/nst-get.png">
+* **Input**
+<img src="./data/get.jpg">
 
-* Output
-<img src="./etc/nst-post.png">
+* **Output**
+<img src="./data/post.jpg">
 
 ## Reference
 

@@ -1,3 +1,4 @@
 space/*.jpg
 space
 .ipython_checkpoints
+/checkpoint/*
