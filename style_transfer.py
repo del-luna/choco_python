@@ -26,7 +26,7 @@ class TestOptions():
         self.parser.add_argument("--model_name", type=str, default='generator.pt', help="name of the saved dualstylegan")
         self.parser.add_argument("--output_path", type=str, default='./flask_deep/static/inference_images/', help="path of the output images")
         self.parser.add_argument("--data_path", type=str, default='./data/', help="path of dataset")
-        self.parser.add_argument("--align_face", action="store_true", help="apply face alignment to the content image")
+        #self.parser.add_argument("--align_face", action="store_true", help="apply face alignment to the content image")
         self.parser.add_argument("--exstyle_name", type=str, default=None, help="name of the extrinsic style codes")
 
     def parse(self):
@@ -151,5 +151,6 @@ def main(content_img_path, style_opt, style_id):
     final_image_path = os.path.join(args.output_path, save_name+'.jpg')
     print(f'Transfer image save: {final_image_path}')
     return final_image_path
+    
 if __name__ == "__main__":
     main()
