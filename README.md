@@ -6,8 +6,6 @@
 
 ## Updates
 
----
-
 - [2022/05/29] Character Style Transfer and website linkage completed
 
 ## Function 
@@ -26,13 +24,13 @@ cd choco_python
 
 **Dependencies:**
 
+Caution! Works only in linux environment
+
 All dependencies for defining the environment are provided in `environment/choco_python_env.yaml`  We recommend running this repository using [Anaconda](https://docs.anaconda.com/anaconda/install/):
 
 ```shell
 conda env create -f ./environment/choco_python_env.yaml
 ```
-
-
 
 ### Start Server
 ```cmd
