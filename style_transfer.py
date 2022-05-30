@@ -15,9 +15,9 @@ class TestOptions():
     def __init__(self, style):
         self.style = style
         self.parser = argparse.ArgumentParser(description="Exemplar-Based Style Transfer")
-        self.parser.add_argument("--content", type=str, default='./data/content/081680.jpg', help="path of the content image")
+        #self.parser.add_argument("--content", type=str, default='./data/content/081680.jpg', help="path of the content image")
         #self.parser.add_argument("--style", type=str, help="target style type")
-        self.parser.add_argument("--style_id", type=int, default=53, help="the id of the style image")
+        #self.parser.add_argument("--style_id", type=int, default=53, help="the id of the style image")
         self.parser.add_argument("--truncation", type=float, default=0.75, help="truncation for intrinsic style code (content)")
         self.parser.add_argument("--weight", type=float, nargs=18, default=[0.75]*7+[1]*11, help="weight of the extrinsic style")
         self.parser.add_argument("--name", type=str, default='transfer', help="filename to save the generated images")
@@ -100,11 +100,16 @@ def main(content_img_path, style_opt, style_id):
         viz = []
         # load content image
         # if args.alignface option
-        if True:
+        
+        try:
             I = transform(run_alignment(args, content_img_path)).unsqueeze(dim=0).to(device)
-            I = F.adaptive_avg_pool2d(I, 1024)
-        else:
+        except np.AxisError:
             I = load_image(content_img_path).to(device)
+            alert = True
+        else:
+            I = F.adaptive_avg_pool2d(I, 1024)
+            alert = False
+      
         viz += [I]
 
         # reconstructed content image and its intrinsic style code
@@ -150,7 +155,7 @@ def main(content_img_path, style_opt, style_id):
     print('Save images successfully!')
     final_image_path = os.path.join(args.output_path, save_name+'.jpg')
     print(f'Transfer image save: {final_image_path}')
-    return final_image_path
+    return final_image_path, alert
     
 if __name__ == "__main__":
     main()

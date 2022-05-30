@@ -1,3 +1,11 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{messages[-1]}}")
+        </script>
+    {% endif %}
+{% endwith %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,7 +23,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/static/css/styles.css" rel="stylesheet" />
     </head>
-    
+
     <style type="text/css">
         .nst_img{
 		width: 350px; 
@@ -40,6 +48,7 @@
             </div>
         </nav>
         <!-- Projects-->
+       
         <section class="projects-section bg-light" id="projects">
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
