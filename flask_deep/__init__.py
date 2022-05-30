@@ -47,3 +47,5 @@ def cst_post():
 		flash("얼굴을 탐지하지 못했습니다.\n 성능이 떨어질 수 있습니다.")
 		#flash("인물 사진이 아닌 경우 BackGround Style Transfer 페이지를 이용해주세요.")
 		return render_template('cst_post.html',content_img=content_img_path, transfer_img=transfer_img_path)
+	else:
+		return render_template('cst_post.html',content_img=content_img_path, transfer_img=transfer_img_path)
