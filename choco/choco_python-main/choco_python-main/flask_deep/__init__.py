@@ -54,7 +54,7 @@ def bst_post():
 		t_list = transfer_img_path.split('/')
 		transfer_img_path = t_list[-2]+'/'+t_list[-1]
 	return render_template('bst_post.html',
-				content_img=content_image_path, transfer_img=transfer_img_path)
+				content_img=content_image_path, style_img=style_image_path, transfer_img=transfer_img_path)
 
 
 @app.route('/c_style_transfer')
