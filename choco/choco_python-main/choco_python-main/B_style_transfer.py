@@ -75,7 +75,7 @@ def evaluate(args, content_image_path, style_image_path):
     '''
     output_image_dir 경로 체크하기
     '''
-    output_image_name = 'output.jpg'
+    output_image_name = 'output.jpg'  # 수정하기
     output_image_dir = 'choco/choco_python-main/choco_python-main/flask_deep/static/inference_images/'
     output_image_path = os.path.join(output_image_dir, output_image_name)
 
