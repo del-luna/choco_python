@@ -20,13 +20,14 @@ C:.
     |   |   |           
     |   |   \---images      // 일부 파일 추가
     |   |           
-    |   \---templates
-    |   |       bst_post.html
+    |   \---templates           
+    |   |       bst_post.html               // 파일 두개 추가
     |   |       b_style_transfer.html
+    |   |       index.html                  // 내용 조금 수정함
     |   |       
     |           
     +---model
-    |   |   21styles.model      
+    |   |   21styles.model      // 모델 추가
     |   |   
     |               
     +---module          // 폴더 추가
