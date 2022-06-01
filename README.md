@@ -3,7 +3,7 @@
 
 
 <!-- 헤더 -->
-![header](https://capsule-render.vercel.app/api?type=slice&color=auto&height=200&section=header&text=Hello&desc=We are%20Choco %Python %20team&fontSize=60&rotate=14&fontAlignY=25&fontAlign=75&descAlignY=43&descAlign=80&&animation=twinkling)
+![header](https://capsule-render.vercel.app/api?type=transparent&height=200&section=header&text=Choco%20Python&desc=Style%20Transfer%20Project&fontColor=5CFFD1&fontSize=60&rotate=&fontAlignY=25&fontAlign=50&descAlignY=50&descAlign=50&&animation=twinkling)
 
 
 
@@ -31,7 +31,7 @@
 
 <br/><br/>
 
-
+</div>
 
 **Flask for Style-Transfer Prototype**
 
@@ -39,7 +39,8 @@
 (상시 가동중은 아닙니다.😅)
 
 
-</div>
+
+
 
 ## Updates
 
