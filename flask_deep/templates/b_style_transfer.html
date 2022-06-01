@@ -15,6 +15,49 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/static/css/styles.css" rel="stylesheet" />
     </head>
+    <script type="text/javascript">
+        function previewImage(targetObj, view_area) {
+        var preview = document.getElementById(view_area); //div id
+        var ua = window.navigator.userAgent;
+    
+        var files = targetObj.files;
+        for ( var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+            if (!file.type.match(imageType))
+                continue;
+            var prevImg = document.getElementById("prev_" + view_area); //이전에 미리보기가 있다면 삭제
+            if (prevImg) {
+                preview.removeChild(prevImg);
+            }
+            var img = document.createElement("img"); 
+            img.id = "prev_" + view_area;
+            img.classList.add("obj");
+            img.file = file;
+            img.style.width = '500px'; 
+            img.style.height = '500px';
+            preview.appendChild(img);
+            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                var reader = new FileReader();
+                reader.onloadend = (function(aImg) {
+                    return function(e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            } else { // safari is not supported FileReader
+                //alert('not supported FileReader');
+                if (!document.getElementById("sfr_preview_error_"
+                        + view_area)) {
+                    var info = document.createElement("p");
+                    info.id = "sfr_preview_error_" + view_area;
+                    info.innerHTML = "not supported FileReader";
+                    preview.insertBefore(info, null);
+                }
+            }
+        }
+    }
+    </script>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -41,50 +84,77 @@
                     <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="/static/assets/img/teaser.png" alt="..." /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>Background StyleTransfer</h4>
+                            <h4>Background Style Transfer</h4>
                         </div>
                     </div>
                 </div>
-                <!-- Project One Row-->
-                <!--
-                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="/static/assets/img/demo-image-01.jpg" alt="..." /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Misty</h4>
-                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                    <hr class="d-none d-lg-block mb-0 ms-0" />
+                <form align="center" action="/bst_post" method="POST" enctype="multipart/form-data">
+                    <!-- Project One Row-->
+                    
+                    <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                        <div class="col-lg-6"><img class="img-fluid" src="/static/assets/img/beach.jpg" alt="..." /></div>
+                        <div class="col-lg-6">
+                            <div class="bg-black text-center h-100 project">
+                                <div class="d-flex h-100">
+                                    <div class="project-text w-100 my-auto text-center text-lg-left">
+                                        <h4 class="text-white">Content Image</h4>
+                                            <!--
+                                            <input type="file",align="center", name="user_img" id="user_img" value="userImage" onchange="previewImage(this,'view_area')"/>
+                                            <input type="submit" value="upload"/>
+                                            -->
+                                            <p class="mb-0 text-white-50">스타일을 적용할 원본 이미지를 입력합니다.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                -->
-                <!-- Project Two Row-->
-                <!--
-                <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="/static/assets/img/demo-image-02.jpg" alt="..." /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
-                                    <hr class="d-none d-lg-block mb-0 me-0" />
+                    
+                    <!-- Project Two Row-->
+                    
+                    <div class="row gx-0 justify-content-center">
+                        <div class="col-lg-6">
+                            <img class="img-fluid" src="/static/assets/img/chagall.jpg" alt="..." />
+                        </div>
+                        <div class="col-lg-6 order-lg-first">
+                            <div class="bg-black text-center h-100 project">
+                                <div class="d-flex h-100">
+                                    <div class="project-text w-100 my-auto text-center text-lg-right">
+                                        <h4 class="text-white">Style Image</h4>
+                                           
+                                            <!--<input type="submit" value="Submit"/>-->
+                                        <p class="mb-0 text-white-50">스타일 이미지를 입력합니다.</p>
+                                        <hr class="d-none d-lg-block mb-0 me-0" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                -->
+                </form>
             </div>
         </section>
-        <!-- Signup-->
-        
-        <!-- Contact-->
-        
+        <section class="projects-section bg-light" id="projects">
+            <form align="center" action="/bst_post" method="POST" enctype="multipart/form-data">
+                <div class="container px-4 px-lg-5">
+                    <!-- Featured Project Row-->
+                    <h2>아래의 익스텐션만 지원합니다.</h2>
+                    <h4>'.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP', '.tif', '.TIF', '.tiff', '.TIFF','.jfif'</h4>
+                    <br><br>
+                            <input type="file" name="user_img" id="file" onchange="previewImage(this,'view_area')"/>
+                        
+                            <br><br>
+                            <div align="center" id='view_area'></div>
+                            <br>
+                            <input type="file" name="style_img" id="file" onchange="previewImage(this,'view_area')"/>
+                        
+                            <br><br>
+                            <div align="center" id='view_area'></div>
+                            <br>
+                            <p>
+                                <input type="submit" class="btn btn-primary" value="Submit"/>
+                            </p>
+                </div>
+            </form>  
+        </section>
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50">
             <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>

@@ -1,16 +1,20 @@
 # Choco_python - Deep learning Style Transfer Service Using Flask
 **Flask for Style-Transfer Prototype**
 
-> Link : http://choco-python.kro.kr:5002/
+> Link : http://chocopython.kro.kr:5002/
 (상시 가동중은 아닙니다.😅)
 
 ## Updates
+
+- [2022/06/01] BackGround Style Transfer and website linkage completed
+
+- [2022/05/31] add docker file
 
 - [2022/05/29] Character Style Transfer and website linkage completed
 
 ## Function 
 * Neural Style Transfer
-  * ~~Background Style Transfer~~ [not yet ...]
+  * Background Style Transfer
   * Character Style Transfer
 
 ## **Installation**
@@ -42,12 +46,20 @@ python start_flask.py
 ## Main Page
 <img src="./flask_deep/static/assets/img/index-main.jpg">
 
-## Style Transfer
+## Character Style Transfer
 * **Input**
-<img src="./data/get.jpg">
+<img src="./doc_images/get.jpg">
 
 * **Output**
-<img src="./data/post.jpg">
+<img src="./doc_images/post.jpg">
+
+
+
+## BackGround Style Transfer
+
+- **Result**
+
+  <img src="./doc_images/bg_post.png">
 
 ## Reference
 

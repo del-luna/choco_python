@@ -5,6 +5,7 @@ sys.path.append("..")
 from flask import Flask, request, flash
 from flask.templating import render_template
 from style_transfer import main
+from cast import cast_main
 
 app = Flask(__name__)
 app.debug = True
@@ -19,6 +20,31 @@ def index():
 def bst_get():
     	return render_template('b_style_transfer.html')
 
+@app.route('/bst_post', methods=['GET','POST'])
+def bst_post():
+	if request.method == 'POST':
+		#Content Image
+		content_img = request.files["user_img"]
+		content_img.save('./flask_deep/static/testA/' + str(content_img.filename))
+		content_img_path = './flask_deep/static/testA/'+str(content_img.filename)
+
+		#Style Image
+		style_img = request.files["style_img"]
+		style_img.save('./flask_deep/static/testB/' + str(content_img.filename))
+		style_img_path = './flask_deep/static/testB/'+str(content_img.filename)
+
+		#Background Style Transfer
+		transfer_img_path = cast_main(content_img_path, style_img_path) # return -> file name
+
+		print(f'content: {content_img_path}')
+		print(f'transfer: {transfer_img_path}')
+
+		c_list = content_img_path.split('/')
+		content_img_path = c_list[-2]+'/'+c_list[-1]
+		t_list = transfer_img_path.split('/')
+		transfer_img_path = t_list[-3]+'/'+t_list[-2]+'/'+t_list[-1]
+
+	return render_template('bst_post.html',content_img=content_img_path, transfer_img=transfer_img_path)
 
 
 @app.route('/c_style_transfer')
@@ -30,8 +56,8 @@ def cst_post():
 	if request.method == 'POST':
 		#Content Image
 		content_img = request.files["user_img"]
-		content_img.save('/home/devcat/choco_python/flask_deep/static/images/' + str(content_img.filename))
-		content_img_path = '/home/devcat/choco_python/flask_deep/static/images/'+str(content_img.filename)
+		content_img.save('./flask_deep/static/images/' + str(content_img.filename))
+		content_img_path = './flask_deep/static/images/'+str(content_img.filename)
 
 		#Style Image
 		style = request.form['style'] #str
