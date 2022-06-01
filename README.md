@@ -5,7 +5,12 @@
 (상시 가동중은 아닙니다.😅)
 
 🔨**Tools**🔨
-<img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/>
+<br>
+
+<img src="https://img.shields.io/badge/GCP-4285F4?style=plastic&logo=googlecloud&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=plastic&logo=docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/Flask-000000?style=plastic&logo=flask&logoColor=white"/>
+<img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=plastic&logo=pytorch&logoColor=white"/>
 
 ## Updates
 
