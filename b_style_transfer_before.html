@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>초코 파이썬 - Style Transfer</title>
+  <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/static/css/styles.css" rel="stylesheet" />
+</head>
+<script type="text/javascript">
+  function previewImage(targetObj, view_area) {
+    var preview = document.getElementById(view_area); //div id
+    var ua = window.navigator.userAgent;
+
+    var files = targetObj.files;
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+      if (!file.type.match(imageType)) continue;
+      var prevImg = document.getElementById("prev_" + view_area); //이전에 미리보기가 있다면 삭제
+      if (prevImg) {
+        preview.removeChild(prevImg);
+      }
+      var img = document.createElement("img");
+      img.id = "prev_" + view_area;
+      img.classList.add("obj");
+      img.file = file;
+      img.style.width = "200px";
+      img.style.height = "200px";
+      preview.appendChild(img);
+      if (window.FileReader) {
+        // FireFox, Chrome, Opera 확인.
+        var reader = new FileReader();
+        reader.onloadend = (function (aImg) {
+          return function (e) {
+            aImg.src = e.target.result;
+          };
+        })(img);
+        reader.readAsDataURL(file);
+      } else {
+        // safari is not supported FileReader
+        //alert('not supported FileReader');
+        if (!document.getElementById("sfr_preview_error_" + view_area)) {
+          var info = document.createElement("p");
+          info.id = "sfr_preview_error_" + view_area;
+          info.innerHTML = "not supported FileReader";
+          preview.insertBefore(info, null);
+        }
+      }
+    }
+  }
+</script>
+
+<body id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+      <a class="navbar-brand" href="/">초코파이썬</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Projects-->
+  <section class="projects-section bg-light" id="projects">
+    <div class="container px-4 px-lg-5">
+      <!-- Featured Project Row-->
+      <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+        <!--style Transfer 이미지 넣는 위치-->
+        <div class="col-xl-8 col-lg-7">
+          <img class="img-fluid mb-3 mb-lg-0" src="/static/assets/bst_ex/1.jpg" alt="..." />
+        </div>
+        <div class="col-xl-4 col-lg-5">
+          <div class="featured-text text-center text-lg-left">
+            <h4>Background StyleTransfer</h4>
+          </div>
+        </div>
+      </div>
+      <form align="center" action="/bst_post" method="POST" enctype="multipart/form-data">
+        <!-- Project One Row-->
+
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/assets/img/pby.jpg" alt="..." />
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center text-lg-left">
+                  <h4 class="text-white">Content Image</h4>
+                  <!--
+                                            <input type="file",align="center", name="user_img" id="user_img" value="userImage" onchange="previewImage(this,'view_area')"/>
+                                            <input type="submit" value="upload"/>
+                                            -->
+                  <p class="mb-0 text-white-50">
+                    스타일을 적용할 원본 이미지를 입력합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Two Row-->
+
+        <div class="row gx-0 justify-content-center">
+          <div class="col-lg-6">
+            <img class="img-fluid" src="/static/assets/img/pby2.gif" alt="..." />
+          </div>
+          <div class="col-lg-6 order-lg-first">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div class="project-text w-100 my-auto text-center text-lg-right">
+                  <h4 class="text-white">Style Image</h4>
+                  <p>
+                    <input type="text" name="style" placeholder="Style(e.g. cartoon, anime)" />
+                  </p>
+                  <p>
+                    <input type="text" name="style_id" placeholder="Style_id(e.g. 27)" />
+                  </p>
+                  <!--<input type="submit" value="Submit"/>-->
+                  <p class="mb-0 text-white-50">
+                    원본이미지 선택<br>
+                    style 이미지 선택<br>
+                  </p>
+                  <a href="https://delluna.notion.site/DualStyleGAN-Example-0d6b47f837564ff7bad16aa2d58c0c8b">DualStyleGan
+                    Tutorials</a>
+                  <hr class="d-none d-lg-block mb-0 me-0" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section class="projects-section bg-light" id="projects">
+    <form align="center" action="/bst_post" method="POST" enctype="multipart/form-data">
+      <div class="container px-4 px-lg-5">
+        <!-- Featured Project Row-->
+        <br /><br />
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6" id="view_area_f">
+              <label for="user_img">파일 업로드</label>
+              <input type="file" name="user_img" id="user_img" value="userImage" accept="image/*"
+                onchange="previewImage(this,'view_area_f')" />
+            </div>
+            <div class="col-sm-6" id="view_area_s">
+              <label for="style_img">파일 업로드</label>
+              <input type="file" name="style_img" id="style_img" value="styleImage" accept="image/*"
+                onchange="previewImage(this,'view_area_s')" />
+            </div>
+          </div>
+        </div>
+        <br />
+        <p>
+          <input type="submit" class="btn btn-primary" value="Submit" />
+        </p>
+
+
+
+      </div>
+    </form>
+  </section>
+  <!-- Footer-->
+  <footer class="footer bg-black small text-center text-white-50">
+    <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>
+    <div class="container px-4 px-lg-5">초코파이썬</div>
+  </footer>
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="/static/js/scripts.js"></script>
+  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+  <!-- * *                               SB Forms JS                               * *-->
+  <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+  <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+
+</html>
