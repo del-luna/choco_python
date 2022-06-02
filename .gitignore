@@ -1,0 +1,7 @@
+space/*.jpg
+space
+.ipython_checkpoints
+/checkpoint/*
+__pycache__
+/flask_deep/static/images/*
+/flask_deep/static/inference_images/*
