@@ -17,6 +17,7 @@
   <!--클라우드-->
   <img src="https://img.shields.io/badge/GCP-4285F4?style=plastic&logo=googlecloud&logoColor=white"/>
   <img src="https://img.shields.io/badge/Docker-2496ED?style=plastic&logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Jenkins-D24939?style=plastic&logo=Jenkins&logoColor=white"/>
    <br/>
   <!--웹-->
    <img src="https://img.shields.io/badge/Flask-000000?style=plastic&logo=flask&logoColor=white"/>
@@ -28,6 +29,7 @@
     <img src="https://img.shields.io/badge/C++-00599C?style=flat&logo=Cplusplus&logoColor=white"/>
     <img src="https://img.shields.io/badge/Python-3776AB?style=plastic&logo=python&logoColor=white"/>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
+
 
 <br/><br/>
 
@@ -43,6 +45,8 @@
 
 
 ## Updates
+
+- [2022/06/02] add Jenkins
 
 - [2022/06/01] BackGround Style Transfer and website linkage completed
 

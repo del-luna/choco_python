@@ -2,6 +2,7 @@ import os
 import numpy as np
 import torch
 from torchvision.transforms.functional import resize as tv_resize
+from torchvision.utils import save_image as tv_save
 from util import save_image, load_image
 import argparse
 from argparse import Namespace
@@ -93,7 +94,7 @@ def main(content_img_path, style_opt, style_id):
     encoder.to(device)
 
     exstyles = np.load(os.path.join(args.model_path, style_opt, args.exstyle_name), allow_pickle='TRUE').item()
-
+    import pdb;pdb.set_trace()
     print('Load models successfully!')
     
     with torch.no_grad():
@@ -119,11 +120,15 @@ def main(content_img_path, style_opt, style_id):
         viz += [img_rec]
 
         stylename = list(exstyles.keys())[style_id]
+        #temp = torch.tensor(exstyles[stylename])
+        #tv_save(temp,f'{style_id}.jpg')
+
         latent = torch.tensor(exstyles[stylename]).to(device)
         if args.preserve_color:
             latent[:,7:18] = instyle[:,7:18]
         # extrinsic styte code
         exstyle = generator.generator.style(latent.reshape(latent.shape[0]*latent.shape[1], latent.shape[2])).reshape(latent.shape)
+        #import pdb;pdb.set_trace()
 
         # load style image if it exists
         S = None
