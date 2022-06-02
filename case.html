@@ -1,0 +1,101 @@
+<html>
+<head>
+
+</head>
+<body>
+
+<script type='text/javascript'>
+var img_L = 0;
+var img_T = 0;
+var targetObj;
+
+function getLeft(o){
+     return parseInt(o.style.left.replace('px', ''));
+}
+function getTop(o){
+     return parseInt(o.style.top.replace('px', ''));
+}
+
+// 이미지 움직이기
+function moveDrag(e){
+     var e_obj = window.event? window.event : e;
+     var dmvx = parseInt(e_obj.clientX + img_L);
+     var dmvy = parseInt(e_obj.clientY + img_T);
+     targetObj.style.left = dmvx +"px";
+     targetObj.style.top = dmvy +"px";
+     return false;
+}
+
+// 드래그 시작
+function startDrag(e, obj){
+     targetObj = obj;
+     var e_obj = window.event? window.event : e;
+     img_L = getLeft(obj) - e_obj.clientX;
+     img_T = getTop(obj) - e_obj.clientY;
+
+     document.onmousemove = moveDrag;
+     document.onmouseup = stopDrag;
+     if(e_obj.preventDefault)e_obj.preventDefault(); 
+}
+
+// 드래그 멈추기
+function stopDrag(){
+     document.onmousemove = null;
+     document.onmouseup = null;
+}
+</script>
+ <script>
+   function fnTest1(divName) {
+    var frm = document.getElementById(divName);
+    
+    if (frm.style.display != "block") {
+     frm.style.display = "block";
+    } else {
+     frm.style.display = "none";
+    }
+   }
+   
+   function fnTest(hidName, divName) {
+    var frmBlock = document.getElementById(divName);
+    var frmNone = document.getElementById(hidName);
+    
+    frmBlock.style.display = "block";
+    frmNone.style.display = "none";
+   }
+   
+   function fnName() {
+    var frm = document.frm;
+    if (frm.btnTest1_2.value != "BACK") {
+     frm.btnTest1_2.value = "BACK";
+    } else {
+     frm.btnTest1_2.value = "SELECT";
+    }
+   }
+ </script>
+</body>
+
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d1fa424f-47cc-459a-9014-c6285874cdf6/_14817.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T060557Z&X-Amz-Expires=86400&X-Amz-Signature=bdd8d5329841ee5f81087331567b948cab4eb7d84738430fe2dc5ad11c287cc4&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22_14817.jpg%22&x-id=GetObject" width = "600" height="600" style="position:absolute; left:800px; top:200px; z-index: 1 
+cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" 
+border="0"></div>
+<div style="position: relative; z-index: 2;"><img src = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8e3fd72c-9fba-4f1d-8cb2-5b6553a6166f/%EC%95%84%EC%9D%B4%ED%8F%B0%EC%BC%80%EC%9D%B4%EC%8A%A4%EB%A7%8C.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T014959Z&X-Amz-Expires=86400&X-Amz-Signature=d11e88ff9af629d593435227087239328053e358af953b14b171ea85c63d1824&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%2595%2584%25EC%259D%25B4%25ED%258F%25B0%25EC%25BC%2580%25EC%259D%25B4%25EC%258A%25A4%25EB%25A7%258C.png%22&x-id=GetObject" width="287" style="position:absolute; margin-left:300; margin-right:auto; margin-top:200; z-index: 1 
+cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" 
+border="0"/>
+
+<body>
+
+  <div id="divBtn4" style="display:block">
+    <input type="button" name="btnTest4" value="SELECT" onclick="javascript:fnTest('divBtn4', 'divHid4')">
+  </div>
+  <div id="divHid4" style="display:none">
+  <a href="javascript:fnTest('divHid4', 'divBtn4')"><img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/475ac05c-5c9b-4bf5-85c6-7851fe78463e/%EC%A0%9C%EB%AA%A9_%EC%97%86%EC%9D%8C-2.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220602%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220602T142437Z&X-Amz-Expires=86400&X-Amz-Signature=6e86121a31f8f473119ba5ff21a44511af71418799fe4531f583d4665c7f82bc&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25A0%259C%25EB%25AA%25A9%2520%25EC%2597%2586%25EC%259D%258C-2.png%22&x-id=GetObject"></a>
+  </div>
+</body>
+
+</html>
+
+<style>
+  .divHid4 {
+    width: 100px;
+    margin: auto;
+    display: block;
+  }
