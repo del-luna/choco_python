@@ -94,7 +94,7 @@ def main(content_img_path, style_opt, style_id):
     encoder.to(device)
 
     exstyles = np.load(os.path.join(args.model_path, style_opt, args.exstyle_name), allow_pickle='TRUE').item()
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     print('Load models successfully!')
     
     with torch.no_grad():
