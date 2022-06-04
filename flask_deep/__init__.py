@@ -74,3 +74,45 @@ def cst_post():
 		return render_template('cst_post.html',content_img=content_img_path, transfer_img=transfer_img_path)
 	else:
 		return render_template('cst_post.html',content_img=content_img_path, transfer_img=transfer_img_path)
+
+'''
+(soyeah 수정)
+위와 마찬가지로 https://초코파이썬_홈페이지_주소/case로 넘어가게끔 하는 코드
+'''
+@app.route('/case')
+def case_get():
+    	return render_template('case.html')
+ 
+ '''
+ bst_post.html 에서 case.html(= /case)로 넘어갈 때 POST를 받으면 아래의 함수가 작용하고, return 값을
+ /case 에 전달함
+ 
+ 근데 뭐가 잘못 됐는지 작동을 하지 않아서 주석처리 하겠음
+
+#아래는 가장 최근의 파일 이름을 return 함
+@app.route('/case', methods=['GET','POST'])
+def case_post():
+    files_Path = "/static/testB/" # 파일들이 들어있는 폴더
+    file_name_and_time_lst = []
+    # 해당 경로에 있는 파일들의 생성시간을 함께 리스트로 넣어줌. 
+    if request.method == "POST":
+        for f_name in os.listdir(f"{files_Path}"):
+            written_time = os.path.getctime(f"{files_Path}{f_name}")
+            file_name_and_time_lst.append((f_name, written_time))
+        # 생성시간 역순으로 정렬하고,
+        sorted_file_lst = sorted(file_name_and_time_lst, key=lambda x: x[1], reverse=True)
+        # 가장 앞에 이는 놈을 넣어준다.
+        recent_file = sorted_file_lst[0]
+        recent_file_name = recent_file[0]
+    return render_template('case.html', transfer_img = recent_file_name)
+
+ '''
+ 
+ '''
+위와 마찬가지로 https://초코파이썬_홈페이지_주소/griptok 으로 넘어가게끔 하는 코드
+'''
+
+@app.route('/griptok')
+def griptok_get():
+		return render_template('griptok.html')
+

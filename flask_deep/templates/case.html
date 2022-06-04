@@ -1,0 +1,107 @@
+<html>
+<head>
+
+</head>
+<body>
+
+<script type='text/javascript'>
+var img_L = 0;
+var img_T = 0;
+var targetObj;
+
+function getLeft(o){
+     return parseInt(o.style.left.replace('px', ''));
+}
+function getTop(o){
+     return parseInt(o.style.top.replace('px', ''));
+}
+
+// 이미지 움직이기
+function moveDrag(e){
+     var e_obj = window.event? window.event : e;
+     var dmvx = parseInt(e_obj.clientX + img_L);
+     var dmvy = parseInt(e_obj.clientY + img_T);
+     targetObj.style.left = dmvx +"px";
+     targetObj.style.top = dmvy +"px";
+     return false;
+}
+
+// 드래그 시작
+function startDrag(e, obj){
+     targetObj = obj;
+     var e_obj = window.event? window.event : e;
+     img_L = getLeft(obj) - e_obj.clientX;
+     img_T = getTop(obj) - e_obj.clientY;
+
+     document.onmousemove = moveDrag;
+     document.onmouseup = stopDrag;
+     if(e_obj.preventDefault)e_obj.preventDefault(); 
+}
+
+// 드래그 멈추기
+function stopDrag(){
+     document.onmousemove = null;
+     document.onmouseup = null;
+}
+</script>
+ <script>
+   function fnTest1(divName) {
+    var frm = document.getElementById(divName);
+    
+    if (frm.style.display != "block") {
+     frm.style.display = "block";
+    } else {
+     frm.style.display = "none";
+    }
+   }
+   
+   function fnTest(hidName, divName) {
+    var frmBlock = document.getElementById(divName);
+    var frmNone = document.getElementById(hidName);
+    
+    frmBlock.style.display = "block";
+    frmNone.style.display = "none";
+   }
+   
+   function fnName() {
+    var frm = document.frm;
+    if (frm.btnTest1_2.value != "BACK") {
+     frm.btnTest1_2.value = "BACK";
+    } else {
+     frm.btnTest1_2.value = "SELECT";
+    }
+   }
+ </script>
+
+</body>
+
+<!--
+첫번째 img 태그
+: 앞에서 만든 styletransfer 이미지 600*600 사이즈로 가져오기
+
+두번째 img 태그
+: 고정되어 있는 아이폰 케이스 이미지
+
+세번째 img 태그
+: select 버튼 눌렀을 때 나오는 Thank U for using this page 사진
+-->
+
+<img src="/static/cast/images/" + "{{favoritemovie}}" width = "600" height="600" style="position:absolute; left:800px; top:200px; z-index: 1; 
+cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" 
+border="0"></div>
+</form>
+<div style="position: relative; z-index: 2;"><img src = "../static/assets/img/iphone.png" width="287" style="position:absolute; margin-left:300; margin-right:auto; margin-top:200; z-index: 1 
+cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" 
+border="0"/>
+
+<body>
+
+  <div id="divBtn4" align="center" style="display:block">
+    <input type="button" name="btnTest4" value="SELECT" onclick="javascript:fnTest('divBtn4', 'divHid4')">
+  </div>
+  <div id="divHid4" style="display:none">
+  <a href="javascript:fnTest('divHid4', 'divBtn4')"><img src="../static/assets/img/iphone_background.png"></a>
+  </div>
+</body>
+
+</html>
