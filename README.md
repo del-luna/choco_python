@@ -40,18 +40,18 @@
 > Link : http://chocopython.kro.kr:5002/
 (상시 가동중은 아닙니다.😅)
 
-
+## File Architecture
 
 ```shell
 start_flask.py (우리가 실행하는 메인 파일)
-flask_deep
+flask_deep (flask 관련 파일들 관리하는 폴더)
   |____ static (asset, css, image등을 관리하는 폴더)
   |	  |____ images (유저가 올린 charatcter content image가 저장되는 곳)
   |	  |____ inference_images (모델 적용 후 character transfer image가 저장되는 곳)
   |	  |____ testA(유저가 올린 background content image가 저장되는 곳)
   |	  |____ testB(유저가 올린 background style image가 저장되는 곳)
   |
-  |____ template (html 파일 관리)
+  |____ template (html 파일 관리 폴더)
   |       |____ index.html (메인페이지)
   |	  |____ b_style_transfer.html (백그라운드 스타일 변환 초기 페이지)
   |	  |____ bst_post.html (백그라운드 스타일 변환 적용 후 페이지)
