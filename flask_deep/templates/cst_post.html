@@ -74,18 +74,27 @@
                     </table>
                 </div>
             </div>
-        </section>
+        
 
         <!---
         soyeah 수정
-        /griptok 으로 페이지 이동
-        /griptok 페이지는 griptok 만들 수 있는 페이지임
+        /custom_griptok 으로 페이지 이동
+        /custom_griptok 페이지는 griptok 만들 수 있는 페이지임
         -->
 
-        <p class="text-black-50 mb-0" align="center">
-            <a href="/griptok">custom griptok</a>
-        </p>
+        <!--
+            (soyeah 2차 수정 22.06.05)
+            이미지 주소를 담은 transfer_img 변수 전달 구현
+        -->
 
+            <form align="center" action="/custom_griptok" method="POST" enctype="text/plain">
+                
+                <input type = "hidden", name = "c_transfer_img" value = "{{transfer_img}}" id = "c_transfer_img">
+                    <p>
+                    <br><input type="submit" class="btn btn-primary" value="Submit"/>
+                    </p>
+            </form>
+        </section>
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50">
             <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>

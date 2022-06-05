@@ -74,17 +74,26 @@
                     </table>
                 </div>
             </div>
-        </section>
 
         <!---
         soyeah 수정
-        /case 으로 페이지 이동
-        /case 페이지는 griptok 만들 수 있는 페이지임
+        /custom_case 으로 페이지 이동
+        /custom_case 페이지는 case 만들 수 있는 페이지임
         -->
 
-        <p class="text-black-50 mb-0" align="center">
-            <a href="/case">custom case</a>
-        </p>
+        <!--
+            (soyeah 2차 수정 22.06.05)
+            이미지 주소를 담은 transfer_img 변수 전달 구현
+        -->
+
+            <form align="center" action="/custom_case" method="POST" enctype="text/plain">
+                
+                <input type = "hidden", name = "b_transfer_img" value = "{{transfer_img}}" id = "b_transfer_img">
+                    <p>
+                        <br><input type="submit" class="btn btn-primary" value="Submit"/>
+                    </p>
+            </form>
+        </section>
 
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50">

@@ -86,7 +86,12 @@ function stopDrag(){
 : select 버튼 눌렀을 때 나오는 Thank U for using this page 사진
 -->
 
-<img src="/static/cast/images/" + "{{favoritemovie}}" width = "600" height="600" style="position:absolute; left:800px; top:200px; z-index: 1; 
+<!--
+    (soyeah 수정 22.06.05)
+    trasfer_img 변수 받아오는 <img src ""/> 주소 수정
+-->
+
+<img src="/static/{{transfer_img}}" + "{{favoritemovie}}" width = "600" height="600" style="position:absolute; left:800px; top:200px; z-index: 1; 
 cursor:pointer; cursor:hand" onmousedown="startDrag(event, this)" 
 border="0"></div>
 </form>
