@@ -41,10 +41,16 @@ def bst_post():
 
 		c_list = content_img_path.split('/')
 		content_img_path = c_list[-2]+'/'+c_list[-1]
+		s_list = style_img_path.split('/')
+		style_img_path = s_list[-2]+'/'+s_list[-1]
 		t_list = transfer_img_path.split('/')
 		transfer_img_path = t_list[-3]+'/'+t_list[-2]+'/'+t_list[-1]
 
-	return render_template('bst_post.html',content_img=content_img_path, transfer_img=transfer_img_path)
+	return render_template('bst_post.html',content_img=content_img_path, style_img=style_img_path, transfer_img=transfer_img_path)
+'''
+위 bst_post 코드에서 style 이미지도 보여줄 수 있도록 코드 수정
+s_list, style_img, return 값
+'''
 
 
 @app.route('/c_style_transfer')
