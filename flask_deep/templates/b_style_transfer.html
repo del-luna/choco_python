@@ -26,81 +26,137 @@
     />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/static/css/styles.css" rel="stylesheet" />
-  <head/>
+  </head>
+  <script type="text/javascript">
+    function previewImage(targetObj, view_area) {
+      var preview = document.getElementById(view_area); //div id
+      var ua = window.navigator.userAgent;
+
+      var files = targetObj.files;
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+        if (!file.type.match(imageType)) continue;
+        var prevImg = document.getElementById('prev_' + view_area); //이전에 미리보기가 있다면 삭제
+        if (prevImg) {
+          preview.removeChild(prevImg);
+        }
+        var img = document.createElement('img');
+        img.id = 'prev_' + view_area;
+        img.classList.add('obj');
+        img.file = file;
+        img.style.width = '200px';
+        img.style.height = '200px';
+        preview.appendChild(img);
+        if (window.FileReader) {
+          // FireFox, Chrome, Opera 확인.
+          var reader = new FileReader();
+          reader.onloadend = (function (aImg) {
+            return function (e) {
+              aImg.src = e.target.result;
+            };
+          })(img);
+          reader.readAsDataURL(file);
+        } else {
+          // safari is not supported FileReader
+          //alert('not supported FileReader');
+          if (!document.getElementById('sfr_preview_error_' + view_area)) {
+            var info = document.createElement('p');
+            info.id = 'sfr_preview_error_' + view_area;
+            info.innerHTML = 'not supported FileReader';
+            preview.insertBefore(info, null);
+          }
+        }
+      }
+    }
+  </script>
   <style>
     .filebox label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #fff;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #629ca0;
-    cursor: pointer;
-    border: 1px solid #629ca0;
-    border-radius: .25em;
-    -webkit-transition: background-color 0.2s;
-    transition: background-color 0.2s;
+      display: inline-block;
+      padding: 0.5em 0.75em;
+      color: #776d61;
+      font-size: x-large;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #b5e3d8;
+      cursor: pointer;
+      border: 5px solid #776d61;
+      border-radius: 0.25em;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
     }
-
     .filebox label:hover {
-    background-color: #629ca0;
+      background-color: #b5e3d8;
     }
-
     .filebox label:active {
-    background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
-    .filebox input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+    .filebox input[type='file'] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
-    
+
     .submitbox label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #fff;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #629ca0;
-    cursor: pointer;
-    border: 1px solid #629ca0;
-    border-radius: .25em;
-    -webkit-transition: background-color 0.2s;
-    transition: background-color 0.2s;
+      display: inline-block;
+      padding: 0.5em 0.75em;
+      color: #776d61;
+      font-size: x-large;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #b5e3d8;
+      cursor: pointer;
+      border: 5px solid #776d61;
+      border-radius: 0.25em;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
     }
 
     .submitbox label:hover {
-    background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
     .submitbox label:active {
-    background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
-    .submitbox input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+    .submitbox input[type='file'] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
   </style>
+
   <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/">초코파이썬</a>
+        <div id="chocopython-logo">
+          <img
+            src="/static/assets/img/logo.png"
+            ;
+            style="
+              width: 30px;
+              height: 30px;
+              vertical-align: middle;
+              position: relative;
+              top: -3px;
+              right: -1px;
+            "
+          />
+          <a class="navbar-brand" href="/">초코파이썬</a>
+        </div>
         <button
           class="navbar-toggler navbar-toggler-right"
           type="button"
@@ -126,88 +182,137 @@
 
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
-      <div class="container px-4 px-lg-5">
+      <div class="container">
         <!-- Featured Project Row-->
-        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+        <div class="col">
           <!--style Transfer 이미지 넣는 위치-->
-          <div class="col-xl-8 col-lg-7">
-                <img
-                id="teaser_content"
-                class="img-fluid mb-3 mb-lg-0"
-                src="/static/assets/img/teaser_content.png"
-                style="max-width: 50%; height: auto;"
-                alt="...";
-                /> 
-          </div>
-            <table>
-                <tr>
-                    <td>
-                      <img
-                      id="teaser_b"
-                      class="img-fluid teaser_b"
-                      src="/static/assets/img/teaser_b.png"
-                      style="max-width: 50%; height: auto;"
-                      />
-                    </td>
-                    <td>
-                      <img
-                      id="teaser_d"
-                      class="img-fluid teaser_d"
-                      src="/static/assets/img/teaser_d.png"
-                      style="max-width: 50%; height: auto;"
-                      />
-                    </td>
-                </tr>
-            </table>
-          <!--refence&target image-->
-            <div class="side-page-main-div"></div>
-		    <h1 align="center" style="color: #353535"><b>Background Style Transfer</b></h1>
-		    <br><br><br><br>
-			<!-- Reference Image 사용자 업로드 -->
-			<h2 align="center" style="color: #353535;">Reference Image</h2>
-			<br><br>
-            <div align="center" class="filebox">
-                <label for="user_img">파일 업로드</label>
-                <input type="file" name="user_img" id="user_img" value="userImage" onchange="previewImage(this,'view_area')"/>
-            </div>
-			<br><br>
-			<div align="center" id='view_area'></div>
-            <br>
-			<!-- Target Image 사용자 업로드 -->
-			<h2 align="center" style="color: #353535;">Target Image</h2>
-			<br><br>
-            <div align="center" class="filebox">
-                <label for="user_img">파일 업로드</label>
-                <input type="file" name="user_img" id="user_img" value="userImage" onchange="previewImage(this,'view_area')"/>
-            </div>
-			<br><br>
-			<div align="center" class="submitbox">
-                <label for="submit">SUBMIT</label>
-                <input type="submit" id="submit" value="submit" style="display: none"/>
-            </div>
-			<br><br>
-			<div align="center" id='view_area'></div>
-            <br>
-			<!-- 슬라이드바 생성 -->
-			<input class="slidebar" type="range" step="1" value="0" min="0" max="5" id="ex-in">
-			<div id="ex-out"></div>
-			<script>
-				document.querySelector('#ex-in').addEventListener('input',e=>{
-					document.querySelector('#ex-out').innerHTML= e.target.value;
-				});
-			</script>
-			<br>
-			<h5 align="center" style="color: #353535;">슬라이드바를 움직여서 스타일 강도를 조절해보세요</h5>
-		    </form>
-	        </div>
-    
-          <!--<div class="col-xl-4 col-lg-5">
-            <div class="featured-text text-center text-lg-left">
-              <h4>Background Style Transfer</h4>
-            </div>-->
+          <div class="my-auto text-center">
+            <h1>
+              <strong><mark>Background Style Transfer</mark></strong>
+            </h1>
           </div>
         </div>
       </div>
+      <form
+        align="center"
+        action="/bst_post"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <form class="container px-4 px-lg-5">
+          <!-- Featured Project Row-->
+          <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <!--style Transfer 이미지 넣는 위치-->
+            <div class="col-xl-12">
+              <img
+                id="teaser_content"
+                class="img-fluid mb-3 mb-lg-0"
+                src="/static/assets/img/teaser_content.png"
+                style="max-width: 50%; height: auto"
+                alt="..."
+                ;
+              />
+            </div>
+            <table>
+              <tr>
+                <td>
+                  <img
+                    id="teaser_b"
+                    class="img-fluid teaser_b"
+                    src="/static/assets/img/teaser_b.png"
+                    style="max-width: 50%; height: auto"
+                  />
+                </td>
+                <td>
+                  <img
+                    id="teaser_d"
+                    class="img-fluid teaser_d"
+                    src="/static/assets/img/teaser_d.png"
+                    style="max-width: 50%; height: auto"
+                  />
+                </td>
+              </tr>
+            </table>
+            <!--refence&target image-->
+            <div class="side-page-main-div"></div>
+            <h1 align="center" style="color: #353535">
+              <b>Set Up</b>
+            </h1>
+            <br /><br /><br /><br />
+            <div class="container">
+              <div class="row">
+                <!-- Content Image 사용자 업로드 -->
+                <div class="col-sm-6" id="view_area_f">
+                  <h2 align="center" style="color: #353535">Content Image</h2>
+                  <div align="center" class="filebox">
+                    <label for="user_img">파일 업로드</label>
+                    <input
+                      type="file"
+                      name="user_img"
+                      id="user_img"
+                      value="userImage"
+                      accept="image/*"
+                      onchange="previewImage(this,'view_area_f')"
+                    />
+                  </div>
+                </div>
+                <br /><br />
+                <!-- Style Image 사용자 업로드 -->
+                <div class="col-sm-6" id="view_area_s">
+                  <h2 align="center" style="color: #353535">Style Image</h2>
+                  <div align="center" class="filebox">
+                    <label for="style_img">파일 업로드</label>
+                    <input
+                      type="file"
+                      name="style_img"
+                      id="style_img"
+                      value="styleImage"
+                      accept="image/*"
+                      onchange="previewImage(this,'view_area_s')"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br /><br />
+            <br /><br />
+            <div align="center" class="submitbox">
+              <br /><br />
+              <br /><br />
+
+              <label for="submit">SUBMIT</label>
+              <input
+                type="submit"
+                class="btn btn-primary"
+                id="submit"
+                value="submit"
+                style="display: none"
+              />
+            </div>
+          </div>
+        </form>
+      </form>
+
+      <!-- <br><br>
+      <div align="center" id='view_area'></div>
+      <br>
+      슬라이드바 생성
+      <input class="slidebar" type="range" step="1" value="0" min="0" max="5" id="ex-in">
+      <div id="ex-out"></div>
+      <script>
+        document.querySelector('#ex-in').addEventListener('input', e => {
+          document.querySelector('#ex-out').innerHTML = e.target.value;
+        });
+      </script>
+      <br>
+      <h5 align="center" style="color: #353535;">슬라이드바를 움직여서 스타일 강도를 조절해보세요</h5>
+      </form>
+    </div> -->
+
+      <!--<div class="col-xl-4 col-lg-5">
+            <div class="featured-text text-center text-lg-left">
+              <h4>Background Style Transfer</h4>
+            </div>-->
     </section>
     <!-- Signup-->
 
@@ -217,6 +322,9 @@
     <footer class="footer bg-black small text-center text-white-50">
       <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>
       <div class="container px-4 px-lg-5">초코파이썬</div>
+      <div class="container px-4 px-lg-5">
+        권재헌 김대록 손아현 이나영 한소예
+      </div>
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

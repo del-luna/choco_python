@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>초코 파이썬 - Style Transfer</title>
+    <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Varela+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/static/css/styles.css" rel="stylesheet" />
+  </head>
+  <script type="text/javascript">
+    function previewImage(targetObj, view_area) {
+      var preview = document.getElementById(view_area); //div id
+      var ua = window.navigator.userAgent;
+
+      var files = targetObj.files;
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+        if (!file.type.match(imageType)) continue;
+        var prevImg = document.getElementById('prev_' + view_area); //이전에 미리보기가 있다면 삭제
+        if (prevImg) {
+          preview.removeChild(prevImg);
+        }
+        var img = document.createElement('img');
+        img.id = 'prev_' + view_area;
+        img.classList.add('obj');
+        img.file = file;
+        img.style.width = '200px';
+        img.style.height = '200px';
+        preview.appendChild(img);
+        if (window.FileReader) {
+          // FireFox, Chrome, Opera 확인.
+          var reader = new FileReader();
+          reader.onloadend = (function (aImg) {
+            return function (e) {
+              aImg.src = e.target.result;
+            };
+          })(img);
+          reader.readAsDataURL(file);
+        } else {
+          // safari is not supported FileReader
+          //alert('not supported FileReader');
+          if (!document.getElementById('sfr_preview_error_' + view_area)) {
+            var info = document.createElement('p');
+            info.id = 'sfr_preview_error_' + view_area;
+            info.innerHTML = 'not supported FileReader';
+            preview.insertBefore(info, null);
+          }
+        }
+      }
+    }
+  </script>
+
+  <body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container px-4 px-lg-5">
+        <div id="chocopython-logo">
+          <img
+            src="/static/assets/img/logo.png"
+            ;
+            style="
+              width: 30px;
+              height: 30px;
+              vertical-align: middle;
+              position: relative;
+              top: -3px;
+              right: -1px;
+            "
+          />
+          <a class="navbar-brand" href="/">초코파이썬</a>
+        </div>
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Our Team Introduction -->
+    <style>
+      a.clickbox {
+          display: inline-block;
+          color: #776d61;
+          background-color: #b5e3d8;
+          cursor: pointer;
+          border: 5px solid #776d61;
+          font-size: large;
+          border-radius: 0.25em;
+          -webkit-transition: background-color 0.2s;
+          transition: background-color 0.2s;
+      }
+      a.clickbox:hover {
+          background-color: #b5e3d8;
+      }
+      a.clickbox:active {
+          background-color: #b5e3d8;
+      }
+  </style>
+    <!-- Intro -->
+    <section class="projects-section bg-light" id="projects">
+      <div class="container">
+        <div class="col">
+          <div class="my-auto text-center">
+            <h1>
+              <strong
+                ><mark
+                  >Hello! <br /><br />
+                  "Choco Python Introduction"</mark
+                ></strong
+              >
+            </h1>
+          </div>
+            <br /><br /><br /><br />
+            <h4>
+              안녕하세요! 초코 파이썬은 <b>‘이미지 생성 AI’</b>가 생성한
+              이미지를 다양한 제품에 적용하는 것에 관심이 있는 팀입니다. 실제
+              상용화를 위해 고민하고 있으며 현재는 휴대폰 케이스 제작에 초점이
+              맞춰져 있습니다. 더 나아가 이 기술을 활용해 옷, 신발 등 다양한
+              디자인 상품에 이미지 생성을 적용할 수 있다고 생각합니다. 자신만의
+              유니크한 아이템을 가지고 싶은 사용자에게 더 나은 서비스를 제공하기
+              위해 데이터 중심으로 목표를 설정하며 새로운 시도를 거듭하고
+              있습니다.
+            </h4>
+            <br /><br /><br />
+            <div class="my-auto text-center">
+              <h3>
+                <strong><mark>Choco Python - github</mark></strong>
+              </h3>
+              <br>
+              <h4>저희 초코파이썬이 더 궁금하시다면 아래 버튼을 눌러주세요!</h4>
+              <br>
+              <a class="clickbox btn btn-primary" href="https://github.com/del-luna/choco_python">Go github!</a>
+            </div>
+            <br /><br /><br />
+            <h3>
+              <strong><mark>Group Members</mark></strong>
+            </h3>
+            <br /><br />
+            <ul>
+              <li>
+                <a href="https://www.notion.so/e04c15c7624242ce921be6ca32a95c8c"
+                  >권재헌</a
+                >
+              </li>
+              <li>
+                <a href="https://www.notion.so/93284a5f4ca14043811ede6a6fe5b915"
+                  >김대록</a
+                >
+              </li>
+              <li>
+                <a href="https://www.notion.so/25bee57e5506446783e8e361ab74b658"
+                  >손아현</a
+                >
+              </li>
+              <li>
+                <a href="https://www.notion.so/67274c932c1f44249c8ccf255c8d878e"
+                  >이나영</a
+                >
+              </li>
+              <li>
+                <a href="https://www.notion.so/592479da89d54ac9b4b9b890e81b8d22"
+                  >한소예</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="footer bg-black small text-center text-white-50">
+      <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>
+      <div class="container px-4 px-lg-5">초코파이썬</div>
+      <div class="container px-4 px-lg-5">
+        권재헌 김대록 손아현 이나영 한소예
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/static/js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+  </body>
+</html>
