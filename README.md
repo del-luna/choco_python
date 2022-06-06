@@ -65,6 +65,7 @@ flask_deep (flask 관련 파일들 관리하는 폴더)
 
 
 ## Updates
+- [2022/06/07] final update
 - [2022/06/06] add case customization page
 
 - [2022/06/04] README update
