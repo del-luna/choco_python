@@ -112,19 +112,13 @@ python start_flask.py
 <img src="./flask_deep/static/assets/img/index-main.jpg">
 
 ## Character Style Transfer
-* **Input**
-<img src="./doc_images/get.jpg">
-
-* **Output**
-<img src="./doc_images/post.jpg">
+<img src="./doc_images/character-teaser.PNG">
 
 
 
 ## BackGround Style Transfer
 
-- **Result**
-
-  <img src="./doc_images/bg_post.png">
+<img src="./doc_images/background.PNG">
 
 ## Reference
 
