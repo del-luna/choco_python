@@ -57,7 +57,7 @@ flask_deep (flask 관련 파일들 관리하는 폴더)
   |	  |____ bst_post.html (백그라운드 스타일 변환 적용 후 페이지)
   |	  |____ c_style_transfer.html (캐릭터 스타일 변환 초기 페이지)
   |	  |____ cst_post.html (캐릭터 스타일 변환 적용 후 페이지)
-  |	  |____ case.html(깃에 올라가있지 않음(merge 예정), 모델 아웃풋 보여주는 페이지(bst_post, cst_post)에서 버튼을 누를 시 여기로 옴->핸드폰 케이스 생성하는 페이지)
+  |	  |____ case.html(모델 아웃풋 보여주는 페이지(bst_post, cst_post)에서 버튼을 누를 시 여기로 옴->핸드폰 케이스 생성하는 페이지)
   |
   |____ __init__.py (flask 웹페이지 관리하는 파일 라우터 등이 여기서 작성됨)
 ```
@@ -65,6 +65,7 @@ flask_deep (flask 관련 파일들 관리하는 폴더)
 
 
 ## Updates
+- [2022/06/06] add case.html, grt.html
 
 - [2022/06/04] README update
 
