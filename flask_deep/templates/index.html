@@ -18,12 +18,19 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/static/css/styles.css" rel="stylesheet" />
 </head>
-
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="/">초코파이썬</a>
+            <div id="chocopython-logo">
+                <img src="/static/assets/img/logo.png"; style="width: 30px;
+                height: 30px;
+                vertical-align: middle;
+                position: relative;
+                top: -3px;
+                right: -1px;" />
+                <a class="navbar-brand" href="/">초코파이썬</a>
+            </div>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -39,13 +46,32 @@
         </div>
     </nav>
     <!-- Masthead-->
+    <style>
+        a.start {
+            display: inline-block;
+            color: #776d61;
+            background-color: #b5e3d8;
+            cursor: pointer;
+            border: 5px solid #776d61;
+            font-size: x-large;
+            border-radius: 0.25em;
+            -webkit-transition: background-color 0.2s;
+            transition: background-color 0.2s;
+        }
+        a.start:hover {
+            background-color: #b5e3d8;
+        }
+        a.start:active {
+            background-color: #b5e3d8;
+        }
+    </style>
     <header class="masthead">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-center">
                     <h1 class="mx-auto my-0 text-uppercase">초코 파이썬</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">Style Transfer Project</h2>
-                    <a class="btn btn-primary" href="#projects">Get Started</a>
+                    <a class="start btn btn-primary" href="#projects">Get Started</a>
                 </div>
             </div>
         </div>
@@ -110,11 +136,11 @@
                 <div class="col-lg-8">
                     <h2 class="text-white mb-4"></h2>
                     <p class="text-white-50">
-                        <a href="https://www.notion.so/afaab7f6e0844c628aefb6a3fc914f67">Our Team Page</a>
+                        <a href="/our_team"></a>Our Team Page</a>
+                        <!-- <a href="https://www.notion.so/afaab7f6e0844c628aefb6a3fc914f67">Our Team Page</a> -->
                     </p>
                 </div>
             </div>
-
             <!--<img class="img-fluid" src="/static/assets/img/team.png" alt="..." />-->
         </div>
     </section>
@@ -122,6 +148,7 @@
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>
         <div class="container px-4 px-lg-5">초코파이썬</div>
+        <div class="container px-4 px-lg-5">권재헌 김대록 손아현 이나영 한소예</div>
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

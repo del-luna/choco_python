@@ -1,361 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>초코 파이썬 - Style Transfer</title>
     <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script
+      src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css?family=Varela+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/static/css/styles.css" rel="stylesheet" />
-</head>
-<script type="text/javascript">
+  </head>
+  <script type="text/javascript">
     function previewImage(targetObj, view_area) {
-        var preview = document.getElementById(view_area); //div id
-        var ua = window.navigator.userAgent;
+      var preview = document.getElementById(view_area); //div id
+      var ua = window.navigator.userAgent;
 
-        var files = targetObj.files;
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
-            if (!file.type.match(imageType))
-                continue;
-            var prevImg = document.getElementById("prev_" + view_area); //이전에 미리보기가 있다면 삭제
-            if (prevImg) {
-                preview.removeChild(prevImg);
-            }
-            var img = document.createElement("img");
-            img.id = "prev_" + view_area;
-            img.classList.add("obj");
-            img.file = file;
-            img.style.width = '300px';
-            img.style.height = '300px';
-            preview.appendChild(img);
-            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
-                var reader = new FileReader();
-                reader.onloadend = (function (aImg) {
-                    return function (e) {
-                        aImg.src = e.target.result;
-                    };
-                })(img);
-                reader.readAsDataURL(file);
-            } else { // safari is not supported FileReader
-                //alert('not supported FileReader');
-                if (!document.getElementById("sfr_preview_error_" +
-                        view_area)) {
-                    var info = document.createElement("p");
-                    info.id = "sfr_preview_error_" + view_area;
-                    info.innerHTML = "not supported FileReader";
-                    preview.insertBefore(info, null);
-                }
-            }
+      var files = targetObj.files;
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+        if (!file.type.match(imageType)) continue;
+        var prevImg = document.getElementById('prev_' + view_area); //이전에 미리보기가 있다면 삭제
+        if (prevImg) {
+          preview.removeChild(prevImg);
         }
+        var img = document.createElement('img');
+        img.id = 'prev_' + view_area;
+        img.classList.add('obj');
+        img.file = file;
+        img.style.width = '300px';
+        img.style.height = '300px';
+        preview.appendChild(img);
+        if (window.FileReader) {
+          // FireFox, Chrome, Opera 확인.
+          var reader = new FileReader();
+          reader.onloadend = (function (aImg) {
+            return function (e) {
+              aImg.src = e.target.result;
+            };
+          })(img);
+          reader.readAsDataURL(file);
+        } else {
+          // safari is not supported FileReader
+          //alert('not supported FileReader');
+          if (!document.getElementById('sfr_preview_error_' + view_area)) {
+            var info = document.createElement('p');
+            info.id = 'sfr_preview_error_' + view_area;
+            info.innerHTML = 'not supported FileReader';
+            preview.insertBefore(info, null);
+          }
+        }
+      }
     }
-</script>
-<!-- select style-->
-<style>
+  </script>
+  <!-- select style-->
+  <style>
     select {
-        width: 130px;
-        padding: 0.2em 0.5em;
-        border: 1px solid #999;
-        font-family: inherit;
-        background: url('../static/css/arrow.jpg') no-repeat 95% 50%;
-        border-radius: 5px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
+      width: 130px;
+      padding: 0.2em 0.5em;
+      border: 1px solid #999;
+      font-family: inherit;
+      background: url('../static/css/arrow.jpg') no-repeat 95% 50%;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
 
     select::-ms-expand {
-        display: none;
+      display: none;
     }
 
-    input[type=text] {
-        width: 130px;
-        height: 32px;
-        padding: 0.2em 0.5em;
+    input[type='text'] {
+      width: 130px;
+      height: 32px;
+      padding: 0.2em 0.5em;
 
-        border-radius: 5px;
-
+      border-radius: 5px;
     }
 
     .filebox label {
-        display: inline-block;
-        padding: .5em .75em;
-        color: #fff;
-        font-size: inherit;
-        line-height: normal;
-        vertical-align: middle;
-        background-color: #629ca0;
-        cursor: pointer;
-        border: 1px solid #629ca0;
-        border-radius: .25em;
-        -webkit-transition: background-color 0.2s;
-        transition: background-color 0.2s;
+      display: inline-block;
+      padding: 0.5em 0.75em;
+      color: #776d61;
+      font-size: x-large;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #b5e3d8;
+      cursor: pointer;
+      border: 5px solid #776d61;
+      border-radius: 0.25em;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
     }
 
     .filebox label:hover {
-        background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
     .filebox label:active {
-        background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
-    .filebox input[type="file"] {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
+    .filebox input[type='file'] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
 
     .submitbox label {
-        display: inline-block;
-        padding: .5em .75em;
-        color: #fff;
-        font-size: inherit;
-        line-height: normal;
-        vertical-align: middle;
-        background-color: #629ca0;
-        cursor: pointer;
-        border: 1px solid #629ca0;
-        border-radius: .25em;
-        -webkit-transition: background-color 0.2s;
-        transition: background-color 0.2s;
+      display: inline-block;
+      padding: 0.5em 0.75em;
+      color: #776d61;
+      font-size: x-large;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #b5e3d8;
+      cursor: pointer;
+      border: 5px solid #776d61;
+      border-radius: 0.25em;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
     }
 
     .submitbox label:hover {
-        background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
     .submitbox label:active {
-        background-color: #629ca0;
+      background-color: #b5e3d8;
     }
 
-    .submitbox input[type="file"] {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
+    .submitbox input[type='file'] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
     }
 
     .pad-01 {
-        padding-top: 20px;
+      padding-top: 20px;
     }
 
     .pad-02 {
-        padding-top: 10px;
+      padding-top: 10px;
     }
 
     .mid_set_01 {
-        display: table;
-        table-layout: fixed;
-        width: 100%;
-        height: 100%;
-        /* background: #ddd; */
-        text-align: center;
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      height: 100%;
+      /* background: #ddd; */
+      text-align: center;
     }
 
     .mid_set_02 {
-        display: table-cell;
-        vertical-align: middle;
+      display: table-cell;
+      vertical-align: middle;
     }
 
     .img_censet {
-        position: relative;
-        width: 100%;
-        height: auto;
-        min-height: 35rem;
-        padding: 30px 10px 300px 10px;
+      position: relative;
+      width: 100%;
+      height: auto;
+      min-height: 35rem;
+      padding: 30px 10px 300px 10px;
     }
-</style>
+  </style>
 
-<body id="page-top">
+  <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container px-4 px-lg-5">
+      <div class="container px-4 px-lg-5">
+        <div id="chocopython-logo">
+            <img src="/static/assets/img/logo.png"; style="width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            position: relative;
+            top: -3px;
+            right: -1px;" />
             <a class="navbar-brand" href="/">초코파이썬</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                </ul>
-            </div>
         </div>
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
+      <div class="container">
+        <!-- Featured Project Row-->
+        <div class="col">
+          <!--style Transfer 이미지 넣는 위치-->
+          <div class="my-auto text-center">
+            <h1>
+              <strong><mark>Character Style Transfer</mark></strong>
+            </h1>
+          </div>
+          <div class="my-auto">
+            <img
+              class="img_censet"
+              src="/static/assets/img/overview.jpeg"
+              alt="..."
+            />
+          </div>
+        </div>
+        <!-- Project One Row-->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+          <div class="col-lg-6">
+            <img
+              class="img-fluid"
+              src="/static/assets/img/jang.jpg"
+              alt="..."
+            />
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div
+                  class="project-text w-100 my-auto text-center text-lg-left"
+                >
+                  <h4 class="text-white">Content Image</h4>
+                  <p class="mb-0 text-white-50">
+                    스타일을 적용할 원본 이미지를 입력합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Two Row-->
+        <div class="row gx-0 justify-content-center">
+          <div class="col-lg-6">
+            <img
+              class="img-fluid"
+              src="/static/assets/img/aurora.PNG"
+              alt="..."
+            />
+          </div>
+          <div class="col-lg-6 order-lg-first">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div
+                  class="project-text w-100 my-auto text-center text-lg-right"
+                >
+                  <h4 class="text-white">Style Image</h4>
+                  <p>
+                    <select class="text-white" style="border: 1px solid #fff">
+                      <option class="text-black" value="cartoon" selected>
+                        만화
+                      </option>
+                      <option class="text-black" value="anime">
+                        애니메이션
+                      </option>
+                      <option class="text-black" value="arcane">
+                        아케인(롤)
+                      </option>
+                      <option class="text-black" value="pixar">픽사</option>
+                    </select>
+                  </p>
+                  <p>
+                    <input
+                      class="bg-black text-white"
+                      type="text"
+                      name="style_id"
+                      placeholder="e.g. 27, 53, ..."
+                      style="border: 1px solid #fff"
+                    />
+                  </p>
+                  <p class="mb-0 text-white-50">스타일을 선택합니다.</p>
+                  <p class="mb-0 text-white-50">
+                    만화, 애니메이션, 아케인(롤), 픽사
+                  </p>
+                  <br />
+                  <p class="mb-0 text-white-50">
+                    아래에 스타일 번호를 입력합니다.
+                  </p>
+                  <p class="mb-0 text-white-50">
+                    스타일 번호는 아래에 있습니다
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3rd Row -->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+          <div class="col-lg-6">
+            <img
+              class="img-fluid"
+              src="/static/assets/img/example_img.jpg"
+              alt="..."
+            />
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-black text-center h-100 project">
+              <div class="d-flex h-100">
+                <div
+                  class="project-text w-100 my-auto text-center text-lg-left"
+                >
+                  <h4 class="text-white">Style ID</h4>
+                  <p class="mb-0 text-white-50">
+                    style_id는 세로 index + 가로 index 입니다.
+                  </p>
+                  <p class="mb-0 text-white-50">
+                    사진을 예로들면 안나의 id는 `40 + 1 = 41`입니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="projects-section bg-light" id="projects">
+      <div align="center" class="container">
+        <div class="col">
+          <!-- 만화 이미지 -->
+          <div class="my-auto text-center">
+            <h2>Cartoon Style Number</h2>
+          </div>
+          <div class="my-auto">
+            <img
+              class="img_censet"
+              src="/static/assets/img/cartoon_overview.jpg"
+              alt="..."
+            />
+          </div>
+          <!-- 애니메이션 이미지 -->
+          <div class="my-auto text-center">
+            <h2>Animation Style Number</h2>
+          </div>
+          <div class="my-auto">
+            <img
+              class="img_censet"
+              src="/static/assets/img/anime_overview.jpg"
+              alt="..."
+            />
+          </div>
+          <!-- 아케인 이미지 -->
+          <div class="my-auto text-center">
+            <h2>Arcane Style Number</h2>
+          </div>
+          <div class="my-auto">
+            <img
+              class="img_censet"
+              src="/static/assets/img/Reconstruction_arcane_overview.jpg"
+              alt="..."
+            />
+          </div>
+          <!-- 픽사 이미지 -->
+          <div class="my-auto text-center">
+            <h2>Pixar Style Number</h2>
+          </div>
+          <div class="my-auto">
+            <img
+              class="img_censet"
+              src="/static/assets/img/Reconstruction_pixar_overview.jpg"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="projects-section bg-light" id="projects">
+      <form
+        align="center"
+        action="/cst_post"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <h2 align="center" style="color: #353535">
+          <b>Set Up</b>
+        </h2>
+        <br />
         <div class="container">
-            <!-- Featured Project Row-->
-            <div class="col">
-                <!--style Transfer 이미지 넣는 위치-->
-                <div class="my-auto text-center">
-                    <h1><strong><mark>Character Style Transfer</mark></strong></h1>
-                </div>
-                <div class="my-auto"><img class="img_censet" src="/static/assets/img/overview.jpeg" alt="..." /></div>
+          <div class="row">
+            <div
+              align="center"
+              class="filebox col-lg-6 col-sm-12 my-auto"
+              id="view_area"
+            >
+              <label for="user_img">파일 업로드</label>
+              <input
+                type="file"
+                name="user_img"
+                id="user_img"
+                value="userImage"
+                accept="image/*"
+                onchange="previewImage(this,'view_area')"
+              />
+              <br /><br />
             </div>
-            <!-- Project One Row-->
-            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="/static/assets/img/jang.jpg" alt="..." />
-                </div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Content Image</h4>
-                                <p class="mb-0 text-white-50">스타일을 적용할 원본 이미지를 입력합니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-6 col-sm-12 my-auto">
+              <p class="pad-01">
+                <label
+                  >style
+                  <select
+                    name="style"
+                    id="style"
+                    style="border: 3px solid #000"
+                  >
+                    <option value="cartoon" selected>Cartoon</option>
+                    <option value="anime">Animation</option>
+                    <option value="arcane">Arcane</option>
+                    <option value="pixar">Pixar</option>
+                  </select></label
+                >
+              </p>
+              <p>
+                <label
+                  >style_id
+                  <input
+                    type="text"
+                    name="style_id"
+                    id="style_id"
+                    placeholder="Style_id"
+                    style="border: 3px solid #000"
+                /></label>
+              </p>
             </div>
-
-            <!-- Project Two Row-->
-            <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src="/static/assets/img/aurora.PNG" alt="..." />
-                </div>
-                <div class="col-lg-6 order-lg-first">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Style Image</h4>
-                                <p>
-                                    <select class="text-white" style="border: 1px solid #fff;">
-                                        <option class="text-black" value="cartoon" selected>만화</option>
-                                        <option class="text-black" value="anime">애니메이션</option>
-                                        <option class="text-black" value="arcane">아케인(롤)</option>
-                                        <option class="text-black" value="pixar">픽사</option>
-                                    </select>
-                                </p>
-                                <p>
-                                    <input class="bg-black text-white" type="text" name="style_id"
-                                        placeholder="e.g. 27, 53, ..." style="border: 1px solid #fff;" />
-                                </p>
-                                <p class="mb-0 text-white-50">스타일을 선택합니다. </p>
-                                <p class="mb-0 text-white-50">만화, 애니메이션, 아케인(롤), 픽사</p>
-                                <br>
-                                <p class="mb-0 text-white-50">아래에 스타일 번호를 입력합니다.</p>
-                                <p class="mb-0 text-white-50">스타일 번호는 아래에 있습니다</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <p>
+            <div align="center" class="submitbox">
+              <label for="submit">SUBMIT</label>
+              <input type="submit" class="btn btn-primary" value="Submit" style="display:none"/>
             </div>
-
-            <!-- Project 3rd Row -->
-            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="/static/assets/img/example_img.jpg" alt="..." />
-                </div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Style ID</h4>
-                                <p class="mb-0 text-white-50">style_id는 세로 index + 가로 index 입니다.</p>
-                                <p class="mb-0 text-white-50">사진을 예로들면 안나의 id는 `40 + 1 = 41`입니다.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </p>
         </div>
-    </section>
-    <section class="projects-section bg-light" id="projects">
-        <div align="center" class="container">
-            <div class="col">
-                <!-- 만화 이미지 -->
-                <div class="my-auto text-center">
-                    <h2>Cartoon Style Number</h2>
-                </div>
-                <div class="my-auto"><img class="img_censet" src="/static/assets/img/cartoon_overview.jpg" alt="..." />
-                </div>
-                <!-- 애니메이션 이미지 -->
-                <div class="my-auto text-center">
-                    <h2>Animation Style Number</h2>
-                </div>
-                <div class="my-auto"><img class="img_censet" src="/static/assets/img/anime_overview.jpg" alt="..." />
-                </div>
-                <!-- 아케인 이미지 -->
-                <div class="my-auto text-center">
-                    <h2>Arcane Style Number</h2>
-                </div>
-                <div class="my-auto"><img class="img_censet" src="/static/assets/img/Reconstruction_arcane_overview.jpg"
-                        alt="..." />
-                </div>
-                <!-- 픽사 이미지 -->
-                <div class="my-auto text-center">
-                    <h2>Pixar Style Number</h2>
-                </div>
-                <div class="my-auto"><img class="img_censet" src="/static/assets/img/Reconstruction_pixar_overview.jpg"
-                        alt="..." />
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <section class="projects-section bg-light" id="projects">
-        <form align="center" action="/cst_post" method="POST" enctype="multipart/form-data">
-            <h2 align="center" style="color: #353535;">Set Up</h2><br>
-            <div class="container">
-                <div class="row">
-
-                    <div align="center" class="filebox col-lg-6 col-sm-12 my-auto" id="view_area">
-                        <label for="user_img">파일 업로드</label>
-                        <input type="file" name="user_img" id="user_img" value="userImage" accept="image/*"
-                            onchange="previewImage(this,'view_area')" />
-                        <br><br>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 my-auto">
-                        <p class="pad-01">
-                            <label>style
-                                <select name="style" id="style" style="border: 3px solid #000;">
-                                    <option value="cartoon" selected>Cartoon</option>
-                                    <option value="anime">Animation</option>
-                                    <option value="arcane">Arcane</option>
-                                    <option value="pixar">Pixar</option>
-                                </select></label>
-                        </p>
-                        <p>
-                            <label>style_id
-                                <input type="text" name="style_id" id="style_id" placeholder="Style_id"
-                                    style="border: 3px solid #000;" /></label>
-                        </p>
-                    </div>
-                </div>
-                <p>
-                    <input type="submit" class="btn btn-primary" value="Submit" />
-                </p>
-            </div>
-        </form>
+      </form>
     </section>
     <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50">
-        <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>
-        <div class="container px-4 px-lg-5">초코파이썬</div>
+      <div class="container px-4 px-lg-5">Aiffel 부산 1기</div>
+      <div class="container px-4 px-lg-5">초코파이썬</div>
+      <div class="container px-4 px-lg-5">권재헌 김대록 손아현 이나영 한소예</div>
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -366,6 +491,5 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-</body>
-
+  </body>
 </html>

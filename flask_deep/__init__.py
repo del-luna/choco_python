@@ -15,6 +15,12 @@ app.debug = True
 def index():
 	return render_template('index.html')
 
+''' Our Team Page'''
+'''index.html에서 Our Team Page를 타고 ourteam.html로 넘어가서 소개글 볼 수 있도록 하는 코드'''
+@app.route('/our_team')
+def ourteam_get():
+	return render_template('our_team.html')
+
 ''' Neural Style Transfer '''
 @app.route('/b_style_transfer')
 def bst_get():
