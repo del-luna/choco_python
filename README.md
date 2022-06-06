@@ -84,7 +84,7 @@ flask_deep (flask 관련 파일들 관리하는 폴더)
 
 ## **Installation**
 
-**Clone this reop:**
+**Clone this repo:**
 
 ```shell
 git clone https://github.com/del-luna/choco_python.git
